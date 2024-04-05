@@ -10,31 +10,54 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 // react-bootstrap forms: https://react-bootstrap.netlify.app/docs/forms/layout/#forms
 
-import { useState } from "react";
+import axios from "axios";
+
+import { useState, ChangeEvent, FormEvent } from "react";
 
 // The number of columns the form should take based on screen size
 const mdFormCols = 7;
 const lgFormCols = 5;
 
-function RegistrationPage() {
-    const [isFormValid, setIsFormValid] = useState<boolean>(false);
+interface FormData {
+    firstName: string;
+    lastName: string;
+    userName: string;
+    email: string;
+    password: string;
+}
 
-    const [password, setPassword] = useState<string>("");
+function RegistrationPage() {
+    //const [password, setPassword] = useState<string>("");
+    const [formData, setFormData] = useState<FormData>({
+        firstName: "",
+        lastName: "",
+        userName: "",
+        email: "",
+        password: "",
+    });
     const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-    const handlePasswordEntry = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value);
-        console.log(password);
+    const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleConfirmPasswordEntry = (
         e: React.ChangeEvent<HTMLInputElement>
     ) => {
         setConfirmPassword(e.target.value);
-        console.log(confirmPassword);
+    };
 
-        if (password === confirmPassword) {
-            setIsFormValid(true);
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (formData.password !== confirmPassword) return;
+
+        try {
+            const res = await axios.post(
+                `${process.env.REACT_APP_API_URI}/user/register-user`,
+                formData
+            );
+        } catch (error) {
+            console.error("Registration error");
         }
     };
 
@@ -42,7 +65,7 @@ function RegistrationPage() {
         <Container>
             <h1>Register</h1>
 
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 {/* First and Last Name Fields */}
                 <Row className="justify-content-md-center">
                     <Col md={mdFormCols} lg={lgFormCols}>
@@ -57,9 +80,13 @@ function RegistrationPage() {
                                         label="First name"
                                         className="mb-3"
                                     >
+                                        {/* name prop matches the textbox to the form data */}
                                         <Form.Control
                                             type="text"
                                             placeholder="First name"
+                                            name="firstName"
+                                            onChange={handleFormChange}
+                                            required
                                         />
                                     </Form.FloatingLabel>
                                 </Form.Group>
@@ -78,11 +105,35 @@ function RegistrationPage() {
                                         <Form.Control
                                             type="text"
                                             placeholder="Last name"
+                                            name="lastName"
+                                            onChange={handleFormChange}
+                                            required
                                         />
                                     </Form.FloatingLabel>
                                 </Form.Group>
                             </Col>
                         </Row>
+                    </Col>
+                </Row>
+
+                {/* Username Field */}
+                <Row className="justify-content-md-center">
+                    <Col md={mdFormCols} lg={lgFormCols}>
+                        <Form.Group className="mb-3" controlId="userNameField">
+                            <Form.FloatingLabel
+                                controlId="userNameFieldLabel"
+                                label="Username"
+                                className="mb-3"
+                            >
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Phisher123"
+                                    name="userName"
+                                    onChange={handleFormChange}
+                                    required
+                                />
+                            </Form.FloatingLabel>
+                        </Form.Group>
                     </Col>
                 </Row>
 
@@ -98,6 +149,9 @@ function RegistrationPage() {
                                 <Form.Control
                                     type="email"
                                     placeholder="name@example.com"
+                                    name="email"
+                                    onChange={handleFormChange}
+                                    required
                                 />
                             </Form.FloatingLabel>
                         </Form.Group>
@@ -116,7 +170,9 @@ function RegistrationPage() {
                                 <Form.Control
                                     type="password"
                                     placeholder="Password"
-                                    onChange={handlePasswordEntry}
+                                    name="password"
+                                    onChange={handleFormChange}
+                                    required
                                 />
                             </Form.FloatingLabel>
                         </Form.Group>
@@ -149,7 +205,8 @@ function RegistrationPage() {
                 <Button
                     type="submit"
                     disabled={
-                        password !== confirmPassword || confirmPassword === ""
+                        formData.password !== confirmPassword ||
+                        confirmPassword === ""
                     }
                 >
                     Submit
