@@ -12,23 +12,16 @@ import Row from "react-bootstrap/Row";
 
 import axios from "axios";
 
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, FormEvent } from "react";
+import useForm from "../../hooks/useForm";
+import FormInput from "./FormInput";
 
 // The number of columns the form should take based on screen size
 const mdFormCols = 7;
 const lgFormCols = 5;
 
-interface FormData {
-    firstName: string;
-    lastName: string;
-    userName: string;
-    email: string;
-    password: string;
-}
-
 function RegistrationPage() {
-    //const [password, setPassword] = useState<string>("");
-    const [formData, setFormData] = useState<FormData>({
+    const { formData, handleFormChange } = useForm({
         firstName: "",
         lastName: "",
         userName: "",
@@ -36,10 +29,6 @@ function RegistrationPage() {
         password: "",
     });
     const [confirmPassword, setConfirmPassword] = useState<string>("");
-
-    const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
 
     const handleConfirmPasswordEntry = (
         e: React.ChangeEvent<HTMLInputElement>
@@ -52,7 +41,7 @@ function RegistrationPage() {
         if (formData.password !== confirmPassword) return;
 
         try {
-            const res = await axios.post(
+            await axios.post(
                 `${process.env.REACT_APP_API_URI}/user/register-user`,
                 formData
             );
@@ -71,46 +60,21 @@ function RegistrationPage() {
                     <Col md={mdFormCols} lg={lgFormCols}>
                         <Row>
                             <Col>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="firstNameField"
-                                >
-                                    <Form.FloatingLabel
-                                        controlId="firstNameFieldLabel"
-                                        label="First name"
-                                        className="mb-3"
-                                    >
-                                        {/* name prop matches the textbox to the form data */}
-                                        <Form.Control
-                                            type="text"
-                                            placeholder="First name"
-                                            name="firstName"
-                                            onChange={handleFormChange}
-                                            required
-                                        />
-                                    </Form.FloatingLabel>
-                                </Form.Group>
+                                <FormInput
+                                    type="text"
+                                    name="firstName"
+                                    label="First Name"
+                                    handleFormChange={handleFormChange}
+                                />
                             </Col>
 
                             <Col>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="lastNameField"
-                                >
-                                    <Form.FloatingLabel
-                                        controlId="latNameFieldLabel"
-                                        label="Last name"
-                                        className="mb-3"
-                                    >
-                                        <Form.Control
-                                            type="text"
-                                            placeholder="Last name"
-                                            name="lastName"
-                                            onChange={handleFormChange}
-                                            required
-                                        />
-                                    </Form.FloatingLabel>
-                                </Form.Group>
+                                <FormInput
+                                    type="text"
+                                    name="lastName"
+                                    label="Last Name"
+                                    handleFormChange={handleFormChange}
+                                />
                             </Col>
                         </Row>
                     </Col>
@@ -119,85 +83,48 @@ function RegistrationPage() {
                 {/* Username Field */}
                 <Row className="justify-content-md-center">
                     <Col md={mdFormCols} lg={lgFormCols}>
-                        <Form.Group className="mb-3" controlId="userNameField">
-                            <Form.FloatingLabel
-                                controlId="userNameFieldLabel"
-                                label="Username"
-                                className="mb-3"
-                            >
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Phisher123"
-                                    name="userName"
-                                    onChange={handleFormChange}
-                                    required
-                                />
-                            </Form.FloatingLabel>
-                        </Form.Group>
+                        <FormInput
+                            type="text"
+                            name="userName"
+                            label="Username"
+                            handleFormChange={handleFormChange}
+                        />
                     </Col>
                 </Row>
 
                 {/* Email Field */}
                 <Row className="justify-content-md-center">
                     <Col md={mdFormCols} lg={lgFormCols}>
-                        <Form.Group className="mb-3" controlId="emailField">
-                            <Form.FloatingLabel
-                                controlId="emailFieldLabel"
-                                label="Email address"
-                                className="mb-3"
-                            >
-                                <Form.Control
-                                    type="email"
-                                    placeholder="name@example.com"
-                                    name="email"
-                                    onChange={handleFormChange}
-                                    required
-                                />
-                            </Form.FloatingLabel>
-                        </Form.Group>
+                        <FormInput
+                            type="email"
+                            name="email"
+                            label="Email"
+                            handleFormChange={handleFormChange}
+                        />
                     </Col>
                 </Row>
 
                 {/* Password Field */}
                 <Row className="justify-content-md-center">
                     <Col md={mdFormCols} lg={lgFormCols}>
-                        <Form.Group className="mb-3" controlId="passwordField">
-                            <Form.FloatingLabel
-                                controlId="passwordFieldLabel"
-                                label="Password"
-                                className="mb-3"
-                            >
-                                <Form.Control
-                                    type="password"
-                                    placeholder="Password"
-                                    name="password"
-                                    onChange={handleFormChange}
-                                    required
-                                />
-                            </Form.FloatingLabel>
-                        </Form.Group>
+                        <FormInput
+                            type="password"
+                            name="password"
+                            label="Password"
+                            handleFormChange={handleFormChange}
+                        />
                     </Col>
                 </Row>
 
                 {/* Confirm Password Field */}
                 <Row className="justify-content-md-center">
                     <Col md={mdFormCols} lg={lgFormCols}>
-                        <Form.Group
-                            className="mb-3"
-                            controlId="confirmPasswordField"
-                        >
-                            <Form.FloatingLabel
-                                controlId="confirmPasswordFieldLabel"
-                                label="Confirm Password"
-                                className="mb-3"
-                            >
-                                <Form.Control
-                                    type="password"
-                                    placeholder="Confirm Password"
-                                    onChange={handleConfirmPasswordEntry}
-                                />
-                            </Form.FloatingLabel>
-                        </Form.Group>
+                        <FormInput
+                            type="password"
+                            name="confirmPassword"
+                            label="Confirm Password"
+                            handleFormChange={handleConfirmPasswordEntry}
+                        />
                     </Col>
                 </Row>
 
