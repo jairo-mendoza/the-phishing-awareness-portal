@@ -10,17 +10,21 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 // react-bootstrap forms: https://react-bootstrap.netlify.app/docs/forms/layout/#forms
 
-import axios from "axios";
-
 import { useState, FormEvent } from "react";
-import useForm from "../../hooks/useForm";
+import useForm from "../../../hooks/useForm";
 import FormInput from "./FormInput";
+
+import { registerUser } from "../api/register";
+
+type RegisterFormProps = {
+    onSuccess: () => void;
+};
 
 // The number of columns the form should take based on screen size
 const mdFormCols = 7;
 const lgFormCols = 5;
 
-function RegistrationPage() {
+export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
     const { formData, handleFormChange } = useForm({
         firstName: "",
         lastName: "",
@@ -40,20 +44,21 @@ function RegistrationPage() {
         e.preventDefault();
         if (formData.password !== confirmPassword) return;
 
-        try {
-            await axios.post(
-                `${process.env.REACT_APP_API_URI}/user/register-user`,
-                formData
-            );
-        } catch (error) {
+        await registerUser({
+            password: formData.password,
+            email: formData.email,
+            userName: formData.userName,
+            lastName: formData.lastName,
+            firstName: formData.firstName,
+        }).catch((error) => {
             console.error("Registration error");
-        }
+        });
+
+        onSuccess();
     };
 
     return (
         <Container>
-            <h1>Register</h1>
-
             <Form onSubmit={handleSubmit}>
                 {/* First and Last Name Fields */}
                 <Row className="justify-content-md-center">
@@ -141,6 +146,4 @@ function RegistrationPage() {
             </Form>
         </Container>
     );
-}
-
-export default RegistrationPage;
+};

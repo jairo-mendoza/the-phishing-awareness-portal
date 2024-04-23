@@ -9,7 +9,7 @@ import Button from "react-bootstrap/Button";
 
 import FormInput from "./FormInput";
 
-import useForm from "../../hooks/useForm";
+import useForm from "../../../hooks/useForm";
 
 import axios from "axios";
 
@@ -17,7 +17,7 @@ import axios from "axios";
 const mdFormCols = 7;
 const lgFormCols = 5;
 
-const LoginPage: React.FC = () => {
+export const LoginForm: React.FC = () => {
     const { formData, handleFormChange } = useForm({
         email: "",
         password: "",
@@ -74,5 +74,3 @@ const LoginPage: React.FC = () => {
         </Container>
     );
 };
-
-export default LoginPage;
