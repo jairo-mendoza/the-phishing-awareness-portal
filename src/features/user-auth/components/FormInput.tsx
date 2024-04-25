@@ -1,5 +1,5 @@
-import React from "react";
-import { Form } from "react-bootstrap";
+import React from 'react';
+import { Form } from 'react-bootstrap';
 
 interface FormInputProps {
     label: string;
@@ -8,19 +8,10 @@ interface FormInputProps {
     handleFormChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const FormInput: React.FC<FormInputProps> = ({
-    type,
-    name,
-    label,
-    handleFormChange,
-}) => {
+const FormInput: React.FC<FormInputProps> = ({ type, name, label, handleFormChange }) => {
     return (
         <Form.Group className="mb-3" controlId={`${name}Field`}>
-            <Form.FloatingLabel
-                controlId={`${name}FieldLabel`}
-                label={label}
-                className="mb-3"
-            >
+            <Form.FloatingLabel controlId={`${name}FieldLabel`} label={label} className="mb-3">
                 {/* name prop matches the textbox to the form data */}
                 <Form.Control
                     type={type}

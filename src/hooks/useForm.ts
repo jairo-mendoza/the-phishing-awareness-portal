@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent } from 'react';
 
 // Form data can have any number of props, but values must be strings
 // This allows flexibility for different forms. Example: login form vs registration form

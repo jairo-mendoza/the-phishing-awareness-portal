@@ -1,20 +1,21 @@
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 // Based on 12 Cols for the screen
 // <Col md={7} lg={5} ...
 //      means that content inside the column will only take up 7 columns for medium sized
 //      screens and so on
-import Container from "react-bootstrap/Container";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 // react-bootstrap forms: https://react-bootstrap.netlify.app/docs/forms/layout/#forms
 
-import { useState, FormEvent } from "react";
-import useForm from "../../../hooks/useForm";
-import FormInput from "./FormInput";
+import { useState, FormEvent } from 'react';
+import useForm from '@/hooks/useForm';
+import FormInput from './FormInput';
 
-import { registerUser } from "../api/register";
+import { registerUser } from '../api/register';
+import { useRegister } from '@/lib/auth';
 
 type RegisterFormProps = {
     onSuccess: () => void;
@@ -26,35 +27,43 @@ const lgFormCols = 5;
 
 export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
     const { formData, handleFormChange } = useForm({
-        firstName: "",
-        lastName: "",
-        userName: "",
-        email: "",
-        password: "",
+        firstName: '',
+        lastName: '',
+        userName: '',
+        email: '',
+        password: '',
     });
-    const [confirmPassword, setConfirmPassword] = useState<string>("");
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
 
-    const handleConfirmPasswordEntry = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
+    const handleConfirmPasswordEntry = (e: React.ChangeEvent<HTMLInputElement>) => {
         setConfirmPassword(e.target.value);
     };
+
+    const register = useRegister();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (formData.password !== confirmPassword) return;
 
-        await registerUser({
-            password: formData.password,
-            email: formData.email,
-            userName: formData.userName,
-            lastName: formData.lastName,
-            firstName: formData.firstName,
-        }).catch((error) => {
-            console.error("Registration error");
-        });
-
-        onSuccess();
+        register.mutate(
+            {
+                password: formData.password,
+                email: formData.email,
+                userName: formData.userName,
+                lastName: formData.lastName,
+                firstName: formData.firstName,
+            },
+            {
+                onSuccess: () => {
+                    // mutate is asynchronous, so we need to use onSuccess to handle the success case
+                    // Redirects to dashboard after successful registration
+                    onSuccess();
+                },
+                onError: () => {
+                    console.log('Error registering user');
+                },
+            }
+        );
     };
 
     return (
@@ -136,10 +145,7 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
                 {/* Submit Form Button */}
                 <Button
                     type="submit"
-                    disabled={
-                        formData.password !== confirmPassword ||
-                        confirmPassword === ""
-                    }
+                    disabled={formData.password !== confirmPassword || confirmPassword === ''}
                 >
                     Submit
                 </Button>

@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-import { Layout } from "../components/Layout";
-import { RegisterForm } from "../components/RegisterForm";
+import { Layout } from '../components/Layout';
+import { RegisterForm } from '../components/RegisterForm';
 
 export const Register = () => {
     const navigate = useNavigate();
@@ -9,7 +9,7 @@ export const Register = () => {
     return (
         <Layout title="Register">
             {/* On successful registration, forward to dashboard */}
-            <RegisterForm onSuccess={() => navigate("/")} />
+            <RegisterForm onSuccess={() => navigate('/')} />
         </Layout>
     );
 };

@@ -1,13 +1,13 @@
+/* Models for what to receive from backend */
 export type AuthUser = {
     id: string;
+    userName: string;
     email: string;
     firstName: string;
     lastName: string;
-    lvl: number;
-    role: "ADMIN" | "USER";
 };
 
 export type UserResponse = {
-    jwt: string;
+    token: string;
     user: AuthUser;
 };

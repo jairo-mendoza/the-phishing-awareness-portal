@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios, { AxiosResponse } from 'axios';
 
-import { UserResponse } from "../types";
+import { UserResponse } from '../types';
 
 // RegisterCredentialsDTO = Register Credentials Data Transfer Object
 // This is the data that will be sent to the server when registering a new user
@@ -14,9 +14,6 @@ export type RegisterCredentialsDTO = {
 
 export const registerUser = (
     data: RegisterCredentialsDTO
-): Promise<UserResponse> => {
-    return axios.post(
-        `${process.env.REACT_APP_API_URI}/user/register-user`,
-        data
-    );
+): Promise<AxiosResponse<UserResponse>> => {
+    return axios.post(`${process.env.REACT_APP_API_URI}/user/register`, data);
 };
