@@ -14,7 +14,6 @@ import { useState, FormEvent } from 'react';
 import useForm from '@/hooks/useForm';
 import FormInput from './FormInput';
 
-import { registerUser } from '../api/register';
 import { useRegister } from '@/lib/auth';
 
 type RegisterFormProps = {

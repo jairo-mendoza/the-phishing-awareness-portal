@@ -9,7 +9,6 @@ import Button from 'react-bootstrap/Button';
 import FormInput from './FormInput';
 
 import useForm from '@/hooks/useForm';
-import { loginWithEmailAndPassword } from '../api/login';
 import { useLogin } from '@/lib/auth';
 
 // The number of columns the form should take based on screen size
