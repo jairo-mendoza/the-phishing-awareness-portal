@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useUser } from '@/lib/auth';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Layout } from '@/features/user-auth/components/Layout';
 
 const Dashboard = () => {
     const user = useUser();
-    console.log(user);
+
+    if (user.isSuccess) {
+        console.log('User data cuhz:', user);
+    }
 
     if (user.isLoading) {
         return <div>Loading...</div>;
@@ -18,11 +16,15 @@ const Dashboard = () => {
         return <div>Error fetching user data</div>;
     }
 
+    if (!user.data) {
+        return <div>No user data</div>;
+    }
+
     return (
         <div>
             <h1>Dashboard</h1>
             <p>
-                Welcome {user.data?.firstName} {user.data?.lastName}
+                Welcome {user.data.data.firstName} {user.data.data.lastName}
             </p>
         </div>
     );
