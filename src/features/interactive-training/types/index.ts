@@ -1,3 +1,4 @@
+/* Email */
 export type Email = {
     sender: string;
     senderName: string;
@@ -12,4 +13,17 @@ export type Email = {
 // This is how the response from the API looks like
 export type EmailResponse = {
     emailData: Email;
+};
+
+/* SMS */
+export type SMS = {
+    number: string;
+    content: string;
+    timeStamp: string;
+    isPhishing: boolean;
+};
+
+// This is how the response from the API looks like
+export type SMSResponse = {
+    smsData: SMS;
 };
