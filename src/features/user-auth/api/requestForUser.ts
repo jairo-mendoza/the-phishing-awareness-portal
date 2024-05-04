@@ -1,8 +1,6 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
-import { AuthUser } from '../types';
-
-export const getUser = (): Promise<AuthUser> => {
+export const requestForUser = (): Promise<AxiosResponse> => {
     return axios.get(`${process.env.REACT_APP_API_URI}/user/`, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,

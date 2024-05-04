@@ -1,31 +1,26 @@
-import { useUser } from '@/lib/auth';
+import { useUserStore } from '@/utils/userStore';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Dashboard = () => {
-    const user = useUser();
+    const user = useUserStore((state) => state.user);
+    const navigate = useNavigate();
 
-    if (user.isSuccess) {
-        console.log('User data cuhz:', user);
-    }
-
-    if (user.isLoading) {
-        return <div>Loading...</div>;
-    }
-
-    if (user.isError) {
-        console.error('Error fetching user data:', user.error);
-        return <div>Error fetching user data</div>;
-    }
-
-    if (!user.data) {
-        return <div>No user data</div>;
-    }
+    // TODO: Redirect to login page if user is not logged in
+    useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+    }, [user, navigate]);
 
     return (
         <div>
             <h1>Dashboard</h1>
             <p>
-                Welcome {user.data.data.firstName} {user.data.data.lastName}
+                Welcome {user?.firstName} {user?.lastName}
             </p>
+
+            <button onClick={() => navigate('/forum')}>Go to Forum</button>
         </div>
     );
 };
