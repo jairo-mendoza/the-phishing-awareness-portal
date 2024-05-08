@@ -15,7 +15,7 @@ export type PostOverview = {
 
 // This type will appear when we are displaying the full post on the post page
 export type Post = PostOverview & {
-    comments: string[];
+    comments: Comment[];
     createdAt: string;
 };
 
@@ -39,7 +39,7 @@ export type Comment = {
     content: string;
     likes: number;
     postId: string;
-    poster: string;
+    commentor: PostUser;
 };
 
 export type CommentResponse = {

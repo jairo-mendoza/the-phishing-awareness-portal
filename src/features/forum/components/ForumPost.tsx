@@ -10,6 +10,7 @@ import { PostTagList } from './PostTagList';
 
 import BackArrow from '@/assets/icons/back-arrow.svg';
 import { CommentInput } from './CommentInput';
+import { Comment } from './Comment';
 
 const PostContainer = styled.div`
     display: flex;
@@ -33,6 +34,7 @@ const PostCommentsContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    gap: 15px;
     padding: 20px;
     width: 100%;
     height: 60vh;
@@ -92,9 +94,15 @@ export const ForumPost = () => {
                 <h5>Comments</h5>
                 <CommentInput postId={postData._id} userId={postData.poster._id} />
                 {postData.comments.length > 0 ? (
-                    <div>
+                    <div style={{ width: '100%' }}>
                         {postData.comments.map((comment) => (
-                            <div key={comment}>{comment}</div>
+                            <div key={comment._id}>
+                                <Comment
+                                    content={comment.content}
+                                    commentorUserName={comment.commentor.userName}
+                                    id={comment._id}
+                                />
+                            </div>
                         ))}
                     </div>
                 ) : (

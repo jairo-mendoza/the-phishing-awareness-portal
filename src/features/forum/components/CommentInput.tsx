@@ -4,7 +4,6 @@ import { Formik, Field, Form, FieldProps } from 'formik';
 import { Stack } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { postForumComment } from '../api/postForumComment';
-import { Comment } from '../types';
 
 interface CommentInputProps {
     postId: string;
@@ -31,7 +30,7 @@ export const CommentInput: React.FC<CommentInputProps> = ({
                         postId,
                         likes: 0,
                         content: values.content,
-                        poster: userId,
+                        commentor: userId,
                     });
                     await axios.put(`${process.env.REACT_APP_API_URI}/post/${postId}/add-comment`, {
                         commentId: res._id,
