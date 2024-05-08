@@ -4,27 +4,33 @@
 import { configureAuth } from 'react-query-auth';
 import {
     loginWithEmailAndPassword,
-    getUser,
     registerUser,
+    requestForUser,
     LoginCredentialsDTO,
     RegisterCredentialsDTO,
     UserResponse,
+    AuthUser,
 } from '@/features/user-auth';
 import { AxiosResponse } from 'axios';
 import storage from '@/utils/storage';
+import { useUserStore } from '@/utils/userStore';
 
 const handleResponse = async (response: AxiosResponse<UserResponse>) => {
+    // Axios does adds an extra `data` property to the response
     const { token, user } = response.data;
-    console.log(token, user);
     storage.setToken(token);
+
+    // Set the auth user in the store
+    // This way, we can access the auth user data from anywhere in the app
+    useUserStore.getState().setUser(user);
 
     return user;
 };
 
-const userFn = async () => {
+const userFn = async (): Promise<AuthUser | null> => {
     if (storage.getToken()) {
-        const data = await getUser();
-        return data;
+        const response = await requestForUser();
+        return response.data.user;
     }
 
     return null;
