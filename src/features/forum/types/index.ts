@@ -32,3 +32,16 @@ export type PostUser = {
     _id: string;
     userName: string;
 };
+
+// Comments
+export type Comment = {
+    _id: string;
+    content: string;
+    likes: number;
+    postId: string;
+    poster: string;
+};
+
+export type CommentResponse = {
+    forumPostComment: Comment;
+};

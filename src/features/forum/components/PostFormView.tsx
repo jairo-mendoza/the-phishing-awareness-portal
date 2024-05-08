@@ -75,12 +75,13 @@ export const PostFormView = () => {
 
                     return errors;
                 }}
-                onSubmit={async (values, { setSubmitting }) => {
-                    console.log(values);
+                onSubmit={(values, { setSubmitting, resetForm }) => {
                     // Submit the form data
                     axios
                         .post(`${process.env.REACT_APP_API_URI}/posts/new-post`, values)
                         .then((res) => navigate('/forum'));
+
+                    resetForm();
                 }}
             >
                 {({ values, handleChange, handleBlur, isSubmitting, errors, touched }) => (

@@ -9,6 +9,7 @@ import { PostTitle } from './PostTitle';
 import { PostTagList } from './PostTagList';
 
 import BackArrow from '@/assets/icons/back-arrow.svg';
+import { CommentInput } from './CommentInput';
 
 const PostContainer = styled.div`
     display: flex;
@@ -89,9 +90,9 @@ export const ForumPost = () => {
 
             <PostCommentsContainer>
                 <h5>Comments</h5>
+                <CommentInput postId={postData._id} userId={postData.poster._id} />
                 {postData.comments.length > 0 ? (
                     <div>
-                        <h2>Comments</h2>
                         {postData.comments.map((comment) => (
                             <div key={comment}>{comment}</div>
                         ))}
