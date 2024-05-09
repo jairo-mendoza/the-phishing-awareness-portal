@@ -8,6 +8,7 @@ export type Email = {
     subject: string;
     body: string;
     timeStamp: string;
+    isPhishing: boolean;
 };
 
 // This is how the response from the API looks like

@@ -15,6 +15,7 @@ const HeaderText = styled.p`
     // For some reason, the default margin for p tags is 16px. This messes up the spacing
     // in the email header, so we need to set the margin to 0.
     margin: 0;
+    text-align: left;
 `;
 
 const SubjectText = styled.h5`
@@ -58,10 +59,27 @@ export const EmailHeader = ({
                 <Stack direction="vertical">
                     {/* Email Sender Name and Email Address */}
                     <Stack direction="horizontal" gap={1}>
-                        <HeaderText>{senderName}</HeaderText>
+                        <div
+                            style={{
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                                maxWidth: '200px', // Adjust as needed
+                            }}
+                        >
+                            <HeaderText>{senderName}</HeaderText>
+                        </div>
                         {/* &lt; = <       &gt; = > */}
-                        <HeaderText>&lt;{sender}&gt;</HeaderText>
-
+                        <div
+                            style={{
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                                maxWidth: '200px', // Adjust as needed
+                            }}
+                        >
+                            <HeaderText>&lt;{sender}&gt;</HeaderText>
+                        </div>
                         <SenderTypoTooltip />
                     </Stack>
 

@@ -20,6 +20,7 @@ const Dashboard = () => {
                 Welcome {user?.firstName} {user?.lastName}
             </p>
 
+            <button onClick={() => navigate('/training')}>Go to Training</button>
             <button onClick={() => navigate('/forum')}>Go to Forum</button>
         </div>
     );
