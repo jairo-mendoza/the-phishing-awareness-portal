@@ -6,6 +6,7 @@ import { EmailFooter } from './EmailFooter';
 import { Email } from '../../types';
 import ReactMarkdown from 'react-markdown';
 import { UrlTypoTooltip } from '@/utils/EmailTooltips';
+import { useStore } from '../../context/selectedButtonStore';
 
 const EmailBody = styled.p`
     padding: 30px;
@@ -29,6 +30,9 @@ export const EmailView: React.FC<EmailViewProps> = ({
     body,
     timeStamp,
 }) => {
+    // Utilizing zustand's state management to store the selected button
+    const { selectedButton } = useStore();
+
     timeStamp = new Date(timeStamp).toDateString();
 
     return (
@@ -51,7 +55,7 @@ export const EmailView: React.FC<EmailViewProps> = ({
                                 {/* Disable redirects on click for the links, for user safety */}
                                 <a {...props} onClick={(e) => e.preventDefault()} />
                                 {/* Show link tooltip if needed */}
-                                <UrlTypoTooltip />
+                                {selectedButton && <UrlTypoTooltip />}
                             </>
                         ),
                     }}
