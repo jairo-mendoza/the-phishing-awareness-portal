@@ -4,7 +4,8 @@ import Stack from 'react-bootstrap/Stack';
 import styled from 'styled-components';
 import { InfoDropdown } from './InfoDropdown';
 
-import { SenderTypoTooltip, UrgencyTooltip } from '@/utils/EmailTooltips';
+import { SenderTypoTooltip } from '@/utils/EmailTooltips';
+import { useStore } from '../../context/selectedButtonStore';
 
 // Styled Components
 const HeaderContainer = styled(Stack)`
@@ -47,6 +48,9 @@ export const EmailHeader = ({
     subject,
     timeStamp,
 }: EmailHeaderProps) => {
+    // Utilizing zustand's state management to store the selected button
+    const { selectedButton } = useStore();
+
     return (
         <HeaderContainer direction="vertical" gap={2}>
             <div>
@@ -80,7 +84,8 @@ export const EmailHeader = ({
                         >
                             <HeaderText>&lt;{sender}&gt;</HeaderText>
                         </div>
-                        <SenderTypoTooltip />
+                        {/* Show tooltip if user selects a button */}
+                        {selectedButton && <SenderTypoTooltip />}
                     </Stack>
 
                     {/* Email Metadata */}
