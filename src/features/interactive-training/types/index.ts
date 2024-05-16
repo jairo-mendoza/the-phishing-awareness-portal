@@ -13,7 +13,7 @@ export type Email = {
 
 // This is how the response from the API looks like
 export type EmailResponse = {
-    emailData: Email;
+    emailData: Email[];
 };
 
 /* SMS */
@@ -26,5 +26,5 @@ export type SMS = {
 
 // This is how the response from the API looks like
 export type SMSResponse = {
-    smsData: SMS;
+    smsData: SMS[];
 };

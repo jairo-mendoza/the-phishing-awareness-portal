@@ -10,6 +10,7 @@ import FormInput from './FormInput';
 
 import useForm from '@/hooks/useForm';
 import { useLogin } from '@/lib/auth';
+import { Link } from 'react-router-dom';
 
 // The number of columns the form should take based on screen size
 const mdFormCols = 7;
@@ -75,6 +76,10 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                 <Button disabled={login.isPending} type="submit">
                     Login
                 </Button>
+                <br />
+                <Link to="/register" style={{ textDecoration: 'none' }}>
+                    Don't have an account? Register here
+                </Link>
             </Form>
         </Container>
     );
