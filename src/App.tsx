@@ -9,7 +9,6 @@ import { Forum } from './features/forum/routes/Forum';
 import { PostForm } from './features/forum/routes/PostForm';
 import { createGlobalStyle } from 'styled-components';
 import { ForumPost } from './features/forum/components/ForumPost';
-import { useUserStore } from './utils/userStore';
 import { PrivateRoute } from './components/routes/PrivateRoutes';
 import { NotFound } from './components/routes/NotFound';
 

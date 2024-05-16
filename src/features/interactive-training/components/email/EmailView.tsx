@@ -18,14 +18,12 @@ const EmailContainer = styled(Container)`
     border-radius: 5px;
 `;
 
-interface EmailViewProps extends Omit<Email, 'isPhishing'> {}
+interface EmailViewProps extends Omit<Email, 'isPhishing' | 'type'> {}
 
 export const EmailView: React.FC<EmailViewProps> = ({
     sender,
     senderName,
     senderProfile,
-    recipient,
-    recipientName,
     subject,
     body,
     timeStamp,
@@ -41,8 +39,6 @@ export const EmailView: React.FC<EmailViewProps> = ({
                 sender={sender}
                 senderName={senderName}
                 senderProfile={senderProfile}
-                recipient={recipient}
-                recipientName={recipientName}
                 subject={subject}
                 timeStamp={timeStamp}
             />

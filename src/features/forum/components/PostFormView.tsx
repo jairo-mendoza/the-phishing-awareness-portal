@@ -4,7 +4,7 @@ import Stack from 'react-bootstrap/Stack';
 
 import styled, { css } from 'styled-components';
 import { TagSelector } from './TagSelector';
-import { RadioButton } from './RadioButton';
+import { RadioButton } from '@/components/RadioButton';
 import { PostType } from '@/utils/forum/postEnums';
 import axios from 'axios';
 import { useUserStore } from '@/utils/userStore';

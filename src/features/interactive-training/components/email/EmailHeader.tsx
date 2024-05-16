@@ -6,6 +6,7 @@ import { InfoDropdown } from './InfoDropdown';
 
 import { SenderTypoTooltip } from '@/utils/EmailTooltips';
 import { useStore } from '../../context/selectedButtonStore';
+import { useUserStore } from '@/utils/userStore';
 
 // Styled Components
 const HeaderContainer = styled(Stack)`
@@ -33,8 +34,6 @@ type EmailHeaderProps = {
     sender: string;
     senderName: string;
     senderProfile: string;
-    recipient: string;
-    recipientName: string;
     subject: string;
     timeStamp: string;
 };
@@ -43,13 +42,12 @@ export const EmailHeader = ({
     sender,
     senderName,
     senderProfile,
-    recipient,
-    recipientName,
     subject,
     timeStamp,
 }: EmailHeaderProps) => {
     // Utilizing zustand's state management to store the selected button
     const { selectedButton } = useStore();
+    const user = useUserStore.getState().user;
 
     return (
         <HeaderContainer direction="vertical" gap={2}>
@@ -94,7 +92,7 @@ export const EmailHeader = ({
                         <InfoDropdown
                             sender={sender}
                             senderName={senderName}
-                            recipient={recipient}
+                            recipient={user?.email ?? ''}
                             subject={subject}
                             timeStamp={timeStamp}
                         />

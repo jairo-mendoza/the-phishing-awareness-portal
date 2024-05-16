@@ -1,10 +1,9 @@
 /* Email */
 export type Email = {
+    type: string;
     sender: string;
     senderName: string;
     senderProfile: string;
-    recipient: string;
-    recipientName: string;
     subject: string;
     body: string;
     timeStamp: string;
@@ -18,6 +17,7 @@ export type EmailResponse = {
 
 /* SMS */
 export type SMS = {
+    type: string;
     number: string;
     content: string;
     timeStamp: string;
@@ -28,3 +28,15 @@ export type SMS = {
 export type SMSResponse = {
     smsData: SMS[];
 };
+
+// Data for an array with both sms and email
+export type AllCommResponse = {
+    data: (Email | SMS)[];
+};
+
+/* Training Options */
+export enum TrainingMediums {
+    Email = 'Email',
+    SMS = 'SMS',
+    Both = 'Both',
+}
