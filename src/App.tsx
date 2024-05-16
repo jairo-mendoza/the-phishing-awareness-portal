@@ -10,7 +10,8 @@ import { PostForm } from './features/forum/routes/PostForm';
 import { createGlobalStyle } from 'styled-components';
 import { ForumPost } from './features/forum/components/ForumPost';
 import { useUserStore } from './utils/userStore';
-import { PrivateRoute } from './components/PrivateRoutes';
+import { PrivateRoute } from './components/routes/PrivateRoutes';
+import { NotFound } from './components/routes/NotFound';
 
 const GlobalStyle = createGlobalStyle`
     :root {
@@ -19,8 +20,6 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-    const user = useUserStore.getState().user;
-
     return (
         <QueryClientProvider client={new QueryClient()}>
             <GlobalStyle />
@@ -39,6 +38,9 @@ function App() {
                             <Route path="create-post" element={<PostForm />} />
                             <Route path="post/:id" element={<ForumPost />} />
                         </Route>
+
+                        {/* Catch all route */}
+                        <Route path="*" element={<NotFound />} />
                     </Routes>
                 </div>
             </Router>
