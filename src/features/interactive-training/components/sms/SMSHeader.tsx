@@ -33,7 +33,7 @@ const formatPhoneNum = (phoneNum: string) => {
     if (match) {
         return '(' + match[1] + ') ' + match[2] + '-' + match[3];
     }
-    return null;
+    return phoneNum;
 };
 
 export const SMSHeader: React.FC<SMSHeaderProps> = ({ phoneNum }) => {

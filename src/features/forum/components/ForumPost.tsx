@@ -11,6 +11,7 @@ import { PostTagList } from './PostTagList';
 import BackArrow from '@/assets/icons/back-arrow.svg';
 import { CommentInput } from './CommentInput';
 import { Comment } from './Comment';
+import ReactMarkdown from 'react-markdown';
 
 const PostContainer = styled.div`
     display: flex;
@@ -86,7 +87,9 @@ export const ForumPost = () => {
                         </p>
                     )}
                 </Stack>
-                <p>{postData.content}</p>
+                <div style={{ textAlign: 'left' }}>
+                    <ReactMarkdown>{postData.content}</ReactMarkdown>
+                </div>
                 <p>{postData.likes} likes</p>
             </PostInfoContainer>
 

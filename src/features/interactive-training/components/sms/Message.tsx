@@ -1,6 +1,7 @@
 /**
  *  This is an individual text message
  */
+import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
 
 const MessageBubble = styled.div`
@@ -37,7 +38,18 @@ interface MessageProps {
 export const Message: React.FC<MessageProps> = ({ content }) => {
     return (
         <MessageBubble>
-            <p>{content}</p>
+            <ReactMarkdown
+                components={{
+                    a: ({ node, ...props }) => (
+                        <>
+                            {/* Disable redirects on click for the links, for user safety */}
+                            <a {...props} onClick={(e) => e.preventDefault()} />
+                        </>
+                    ),
+                }}
+            >
+                {content}
+            </ReactMarkdown>
         </MessageBubble>
     );
 };

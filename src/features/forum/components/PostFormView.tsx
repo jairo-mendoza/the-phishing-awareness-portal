@@ -78,13 +78,13 @@ export const PostFormView = () => {
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     // Submit the form data
                     axios
-                        .post(`${process.env.REACT_APP_API_URI}/posts/new-post`, values)
+                        .post(`${process.env.REACT_APP_API_URI}/post/new-post`, values)
                         .then((res) => navigate('/forum'));
 
                     resetForm();
                 }}
             >
-                {({ values, handleChange, handleBlur, isSubmitting, errors, touched }) => (
+                {({ isSubmitting, errors, touched }) => (
                     <StyledForm>
                         {/* Title Field */}
                         {/* Display error message if title is touched and has an error */}
@@ -146,11 +146,11 @@ export const PostFormView = () => {
                         </div>
 
                         {/* Image Field */}
-                        <div style={{ width: '100%', textAlign: 'left' }}>
+                        {/* <div style={{ width: '100%', textAlign: 'left' }}>
                             <label htmlFor="image">Select an Image:</label>
                             <br />
                             <input type="file" accept="image/*" className={formMb} />
-                        </div>
+                        </div> */}
 
                         <p>Posting as {user?.userName}</p>
 

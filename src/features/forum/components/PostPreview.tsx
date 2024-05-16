@@ -64,7 +64,9 @@ export const PostPreview: React.FC<PostPreviewProps> = ({
                 {/* Display tags if they exist */}
                 <PostTagList tags={tags} />
 
-                <Card.Text>{content.substring(0, 200)}</Card.Text>
+                <Card.Text>
+                    {content.length > 200 ? `${content.substring(0, 200)}...` : content}
+                </Card.Text>
                 {img && <Card.Img src={img} />}
             </Card.Body>
             <PostFooter>

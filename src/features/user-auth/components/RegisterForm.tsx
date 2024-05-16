@@ -15,6 +15,7 @@ import useForm from '@/hooks/useForm';
 import FormInput from './FormInput';
 
 import { useRegister } from '@/lib/auth';
+import { Link } from 'react-router-dom';
 
 type RegisterFormProps = {
     onSuccess: () => void;
@@ -148,6 +149,11 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
                 >
                     Submit
                 </Button>
+                <br />
+                <Link to="/login" style={{ textDecoration: 'none' }}>
+                    {' '}
+                    Already have an account? Login here{' '}
+                </Link>
             </Form>
         </Container>
     );
