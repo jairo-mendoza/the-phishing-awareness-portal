@@ -1,21 +1,13 @@
 import { useUserStore } from '@/utils/userStore';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 
 const Dashboard = () => {
     const user = useUserStore((state) => state.user);
     const navigate = useNavigate();
 
-    // TODO: Redirect to login page if user is not logged in
-    useEffect(() => {
-        if (!user) {
-            navigate('/login');
-        }
-    }, [user, navigate]);
-
     return (
         <div>
-            <h1>Dashboard</h1>
+            <h1>The Phishing Awareness Portal</h1>
             <p>
                 Welcome {user?.firstName} {user?.lastName}
             </p>

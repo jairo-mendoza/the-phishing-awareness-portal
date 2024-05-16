@@ -9,6 +9,8 @@ import { Forum } from './features/forum/routes/Forum';
 import { PostForm } from './features/forum/routes/PostForm';
 import { createGlobalStyle } from 'styled-components';
 import { ForumPost } from './features/forum/components/ForumPost';
+import { useUserStore } from './utils/userStore';
+import { PrivateRoute } from './components/PrivateRoutes';
 
 const GlobalStyle = createGlobalStyle`
     :root {
@@ -17,21 +19,26 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
+    const user = useUserStore.getState().user;
+
     return (
         <QueryClientProvider client={new QueryClient()}>
             <GlobalStyle />
             <Router>
                 <div className="App">
                     <Routes>
+                        {/* Auth */}
                         <Route path="register" element={<Register />} />
                         <Route path="login" element={<Login />} />
 
                         {/* Features */}
-                        <Route path="/" element={<Dashboard />} />
-                        <Route path="training" element={<Training />} />
-                        <Route path="forum" element={<Forum />} />
-                        <Route path="create-post" element={<PostForm />} />
-                        <Route path="post/:id" element={<ForumPost />} />
+                        <Route element={<PrivateRoute />}>
+                            <Route path="/" element={<Dashboard />} />
+                            <Route path="training" element={<Training />} />
+                            <Route path="forum" element={<Forum />} />
+                            <Route path="create-post" element={<PostForm />} />
+                            <Route path="post/:id" element={<ForumPost />} />
+                        </Route>
                     </Routes>
                 </div>
             </Router>

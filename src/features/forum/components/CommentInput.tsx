@@ -14,13 +14,6 @@ export const CommentInput: React.FC<CommentInputProps> = ({
     postId,
     userId,
 }: CommentInputProps) => {
-    const user = useUserStore((state) => state.user);
-    const navigate = useNavigate();
-
-    if (!user) {
-        navigate('/login');
-    }
-
     return (
         <Formik
             initialValues={{ content: '' }}

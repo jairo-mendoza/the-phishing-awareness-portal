@@ -50,10 +50,6 @@ export const PostFormView = () => {
     const user = useUserStore((state) => state.user);
     const navigate = useNavigate();
 
-    if (!user) {
-        navigate('/login');
-    }
-
     return (
         <>
             <Formik
