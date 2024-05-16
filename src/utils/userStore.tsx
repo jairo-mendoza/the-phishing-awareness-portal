@@ -9,5 +9,14 @@ interface UserState {
 
 export const useUserStore = create<UserState>((set) => ({
     user: null,
-    setUser: (user) => set({ user }),
+    setUser: (user) => {
+        set({ user });
+        localStorage.setItem('user', JSON.stringify(user));
+    },
 }));
+
+// Runs on first load
+const user = localStorage.getItem('user');
+if (user) {
+    useUserStore.setState({ user: JSON.parse(user) });
+}
